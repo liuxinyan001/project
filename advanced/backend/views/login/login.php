@@ -13,32 +13,45 @@ use yii\helpers\Html;
 LayuiAsset::register($this);
 
 $this->title = 'Login';
-$this->params['breadcrumbs'][] = $this->title;
+
 ?>
 
 <div class="login-main">
-    <header class="layui-elip">登录</header>
+    <div class="layadmin-user-login-box layadmin-user-login-header" style="margin-left: 450px; width: 300px;margin-top: 150px; margin-bottom: 20px;">
+        <h2>旗鱼DSP系统</h2>
+    </div>
     <form class="layui-form">
+        <div class="layui-form-item" style="margin-left: 450px; width: 300px;">
             <input type="text" name="username" required lay-verify="required" placeholder="用户名" autocomplete="off"
                    class="layui-input">
+        </div>
 
+        <div class="layui-form-item" style="margin-left: 450px; width: 300px;">
             <input type="password" name="password" required lay-verify="required" placeholder="密码" autocomplete="off"
                    class="layui-input">
-        <div class="layui-input-inline login-btn">
-            <button lay-submit lay-filter="login" class="layui-btn">登录</button>
         </div>
-        <hr/>
-        <p><a href="register.html" class="fl">立即注册</a><a href="javascript:;" class="fr">忘记密码？</a></p>
+
+        <div class="layui-form-item" style="margin-left: 450px; width: 300px;">
+            <input type="hidden" name="auto" value="0" title="七天免登录" lay-skin="primary">
+            <input type="checkbox" name="auto" value="1" title="七天免登录" lay-skin="primary">
+        </div>
+
+        <div class="layui-input-inline login-btn" style="margin-left: 450px; width: 300px;">
+            <button lay-submit lay-filter="login" class="layui-btn">登录</button><br><br>
+            <p><a href="register.html" class="fl">立即注册</a><a href="javascript:;" class="fr">忘记密码？</a></p>
+        </div>
     </form>
 </div>
 
-<script src="js/jquery.min.js"></script>
-<script src="layui/layui.all.js"></script>
-<script src="layui/layui.js"></script>
+
+
+<?=Html::jsFile('@web/js/jquery.min.js')?>
+<?=Html::jsFile('@web/layui/layui.all.js')?>
+<?=Html::jsFile('@web/layui/layui.js')?>
 
 <script type="text/javascript">
     layui.use(['form','layer','jquery'], function () {
-        var path = "<?php echo Url::toRoute('site/login',true); ?>";
+        var path = "<?php echo Url::toRoute('login/login',true); ?>";
         // 操作对象
         var form = layui.form;
         var $ = layui.jquery;
@@ -51,7 +64,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 type:'post',
                 success:function (data) {
                     if (data == '1'){
-                        location.href = "../web/index.php?r=login/login";
+                        location.href = "../web/index.php?r=index/index";
                     }else{
                         layer.msg('登录名或密码错误');
                     }

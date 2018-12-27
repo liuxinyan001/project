@@ -35,20 +35,14 @@ AppAsset::register($this);
             'class' => 'navbar-inverse navbar-fixed-top',
         ],
     ]);
-    $menuItems = [
+    /*$menuItems = [
         ['label' => 'Home', 'url' => ['/site/index']],
-    ];
-    if (Yii::$app->user->isGuest) {
-        $menuItems[] = ['label' => 'Login', 'url' => ['/site/login']];
+    ];*/
+    if (Yii::$app->session->get('username')) {
+        echo '<span style="color: white; padding-left: 860px;">'.'欢迎 '.Yii::$app->session->get('username').' 登录 |';
+        $menuItems[] = ['label' => '退出', 'url' => ['/login/logout']];
     } else {
-        $menuItems[] = '<li>'
-            . Html::beginForm(['/site/logout'], 'post')
-            . Html::submitButton(
-                'Logout (' . Yii::$app->user->identity->username . ')',
-                ['class' => 'btn btn-link logout']
-            )
-            . Html::endForm()
-            . '</li>';
+        $menuItems[] = ['label' => '登录', 'url' => ['/login/login']];
     }
     echo Nav::widget([
         'options' => ['class' => 'navbar-nav navbar-right'],
@@ -66,13 +60,12 @@ AppAsset::register($this);
     </div>
 </div>
 
-<footer class="footer">
+<!--<footer class="footer">
     <div class="container">
-        <p class="pull-left">&copy; <?= Html::encode(Yii::$app->name) ?> <?= date('Y') ?></p>
+        <p class="pull-left">&copy; /*= Html::encode(Yii::$app->name) */?>/*= date('Y') */?></p>
 
-        <p class="pull-right"><?= Yii::powered() ?></p>
     </div>
-</footer>
+</footer>-->
 
 <?php $this->endBody() ?>
 </body>
